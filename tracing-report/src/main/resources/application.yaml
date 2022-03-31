@@ -1,0 +1,19 @@
+server:
+  port: 8080
+services:
+  user:
+    url: localhost:8080
+  email:
+    url: localhost:8082
+
+spring:
+  application:
+    name: user-service
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          endpoint: http://sleuth:4317
+

@@ -1,0 +1,18 @@
+server:
+  port: 8080
+services:
+  report:
+    url: http://report-service:8080
+  email:
+    url: http://email-service:8080
+
+spring:
+  application:
+    name: user-service
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          endpoint: http://sleuth:4317
