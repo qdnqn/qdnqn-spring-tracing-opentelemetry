@@ -4,20 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tracing</groupId>
-		<artifactId>tracing</artifactId>
+		<artifactId>commons</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<groupId>com.tracing</groupId>
-	<artifactId>commons</artifactId>
+	<artifactId>email</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
-	<modules>
-		<module>report</module>
-		<module>user</module>
-		<module>email</module>
-	</modules>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>11</java.version>
@@ -32,9 +27,5 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
 	</dependencies>
 </project>

@@ -10,10 +10,9 @@ kafka:
   bootstrap: kafka:9092
   topic: reports
   group: emails
-
 spring:
   application:
-    name: report-service
+    name: email-service
   sleuth:
     otel:
       config:

@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tracing.report.Report;
+import org.springframework.kafka.core.KafkaTemplate;
 import com.tracing.service.reports.ReportNotFoundException;
 
 @RestController
@@ -24,6 +27,12 @@ public class ReportController
 {
     private final ReportRepository repository;
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
+
+    @Autowired
+    private KafkaTemplate<String, Report> kafkaTemplate;
+
+    @Value(value = "${kafka.topic}")
+    private String topic;
 
     ReportController(ReportRepository repository) {
         this.repository = repository;
@@ -46,8 +55,9 @@ public class ReportController
                 .buildAndExpand(report.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri)
-                .body(report);
+        kafkaTemplate.send(this.topic, report);
+
+        return ResponseEntity.created(uri).body(report);
     }
 
     @GetMapping("/reports/{id}")
